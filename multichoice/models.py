@@ -54,7 +54,7 @@ class MCQuestion(Question):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(MCQuestion, verbose_name=_("Question"))
+    question = models.ForeignKey(MCQuestion, verbose_name=_("Question"), on_delete=models.CASCADE)
 
     content = models.CharField(max_length=1000,
                                blank=False,
