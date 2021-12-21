@@ -46,7 +46,7 @@ class SubCategory(models.Model):
         max_length=250, blank=True, null=True)
 
     category = models.ForeignKey(
-        Category, null=True, blank=True,
+        Category, null=True, blank=True, on_delete=models.SET_NULL,
         verbose_name=_("Category"))
 
     objects = CategoryManager()
@@ -76,7 +76,7 @@ class Quiz(models.Model):
 
     category = models.ForeignKey(
         Category, null=True, blank=True,
-        verbose_name=_("Category"))
+        verbose_name=_("Category"), on_delete=models.SET_NULL)
 
     random_order = models.BooleanField(
         blank=False, default=False,
@@ -364,9 +364,9 @@ class Sitting(models.Model):
     with the answer the user gave.
     """
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE)
 
-    quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"))
+    quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE)
 
     question_order = models.CommaSeparatedIntegerField(
         max_length=1024, verbose_name=_("Question Order"))
@@ -540,12 +540,12 @@ class Question(models.Model):
     category = models.ForeignKey(Category,
                                  verbose_name=_("Category"),
                                  blank=True,
-                                 null=True)
+                                 null=True, on_delete=models.SET_NULL)
 
     sub_category = models.ForeignKey(SubCategory,
                                      verbose_name=_("Sub-Category"),
                                      blank=True,
-                                     null=True)
+                                     null=True, on_delete=models.SET_NULL)
 
     figure = models.ImageField(upload_to='uploads/%Y/%m/%d',
                                blank=True,
