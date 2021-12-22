@@ -188,7 +188,7 @@ class Progress(models.Model):
     """
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE)
 
-    score = models.CommaSeparatedIntegerField(max_length=1024,
+    score = models.CharField(validators=[validate_comma_separated_integer_list], max_length=1024,
                                               verbose_name=_("Score"))
 
     objects = ProgressManager()
@@ -368,13 +368,13 @@ class Sitting(models.Model):
 
     quiz = models.ForeignKey(Quiz, verbose_name=_("Quiz"), on_delete=models.CASCADE)
 
-    question_order = models.CommaSeparatedIntegerField(
+    question_order = models.CharField(validators=[validate_comma_separated_integer_list],
         max_length=1024, verbose_name=_("Question Order"))
 
-    question_list = models.CommaSeparatedIntegerField(
+    question_list = models.CharField(validators=[validate_comma_separated_integer_list],
         max_length=1024, verbose_name=_("Question List"))
 
-    incorrect_questions = models.CommaSeparatedIntegerField(
+    incorrect_questions = models.CharField(validators=[validate_comma_separated_integer_list],
         max_length=1024, blank=True, verbose_name=_("Incorrect questions"))
 
     current_score = models.IntegerField(verbose_name=_("Current Score"))
