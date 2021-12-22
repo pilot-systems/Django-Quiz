@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator
 from django.utils.translation import ugettext as _
 from django.utils.timezone import now
 from django.conf import settings
+from django.core.validators import validate_comma_separated_integer_list
 
 from model_utils.managers import InheritanceManager
 
