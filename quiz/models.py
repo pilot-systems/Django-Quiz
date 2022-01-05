@@ -405,9 +405,12 @@ class Sitting(models.Model):
         if not self.question_list:
             return False
 
-        first, _ = self.question_list.split(',', 1)
-        question_id = int(first)
-        return Question.objects.get_subclass(id=question_id)
+        for question_id in self.question_list.split(','):
+            try:
+                return Question.objects.get_subclass(id=int(question_id))
+            except Question.DoesNotExist:
+                pass
+        return False
 
     def remove_first_question(self):
         if not self.question_list:
