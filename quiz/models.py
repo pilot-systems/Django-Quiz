@@ -12,6 +12,8 @@ from django.core.validators import validate_comma_separated_integer_list
 
 from model_utils.managers import InheritanceManager
 
+def get_nint_choices(n):
+    return [(x, y) for x in range(1, n) for y in range(1, n) if x == y]
 
 class CategoryManager(models.Manager):
 
@@ -131,7 +133,9 @@ class Quiz(models.Model):
                     " in the quiz list and can only be"
                     " taken by users who can edit"
                     " quizzes."))
-
+    
+    weight = models.IntegerField("Poids", choices=get_nint_choices(30), default=3)
+    
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
         self.url = re.sub('\s+', '-', self.url).lower()
 
