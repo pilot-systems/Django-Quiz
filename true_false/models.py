@@ -32,7 +32,7 @@ class TF_Question(Question):
                  'content': 'False'}]
 
     def get_answers_list(self):
-        return [(True, True), (False, False)]
+        return [(True, "Vrai"), (False, "Faux")]
 
     def answer_choice_to_string(self, guess):
         return str(guess)
